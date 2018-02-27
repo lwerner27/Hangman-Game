@@ -1,0 +1,15 @@
+.container {
+    margin-top: 40px;
+}
+.col-md-6 {
+    border: solid black 1px;
+}
+
+.row-1 {
+    margin-bottom: 40px;
+}
+
+img {
+    width: 300px;
+    height: auto;
+}
