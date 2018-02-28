@@ -36,6 +36,17 @@ const champs = [
     "warwick", 
     "zac"
 ];
+// An array of all the image paths need for the game image
+const imgPaths = [
+    "./assets/images/hangmanImages/0-hangman.png",
+    "./assets/images/hangmanImages/1-hangman.png",
+    "./assets/images/hangmanImages/2-hangman.png",
+    "./assets/images/hangmanImages/3-hangman.png",
+    "./assets/images/hangmanImages/4-hangman.png",
+    "./assets/images/hangmanImages/5-hangman.png",
+    "./assets/images/hangmanImages/6-hangman.png",
+    "./assets/images/hangmanImages/YouWin.png"
+]
 
 // Function Declarations
 // ----------------------------------------------------------------------------------------
@@ -79,12 +90,21 @@ function checkForLetter(letter) {
         badGuessCounter++
     }
     changeToString(hiddenChamp);
-    console.log(blankString);
 }
 
 function updateScreen() {
     document.getElementById("guessed-letters").innerHTML = guessedLetters;
     document.getElementById("champ-name").innerHTML = blankString;
+
+    if (badGuessCounter <= 6) {
+        document.getElementById("hangman-img").src = imgPaths[badGuessCounter]
+    }
+}
+
+function winCheck() {
+    if (blankString === currentChamp) {
+        document.getElementById("hangman-img").src = imgPaths[7];
+    }
 }
 
 
@@ -130,5 +150,5 @@ document.onkeyup = function(event) {
 
     checkForLetter(pressedKey);
     updateScreen();
-
+    winCheck();
 }
