@@ -82,32 +82,53 @@ function checkForLetter(letter) {
     console.log(blankString);
 }
 
-// Starts the game
-function startGame() {
-
+function updateScreen() {
+    document.getElementById("guessed-letters").innerHTML = guessedLetters;
+    document.getElementById("champ-name").innerHTML = blankString;
 }
+
+
 
 
 // Function Calls
 // ---------------------------------------------------------------------------------------------------
 
 // Generates a random champ and prints it to the console
+
+// console.log(currentChamp)
+
+// // turns the current champ variable into an array and prints it to the console
+// currentChampArr = splitChamp(currentChamp)
+// console.log(currentChampArr)
+
+// // Takes in the current champ array to set the number of blanks needed
+// createBlanks(currentChampArr)
+// console.log(hiddenChamp)
+
+// // Turns the hiddenChamp array into string
+// changeToString(hiddenChamp)
+// console.log(blankString)
+
+
+
+
+
+// Actual Game Call
+
+// these functions set up the game
 currentChamp = randomChamp()
+currentChampArr = splitChamp(currentChamp)
+createBlanks(currentChampArr)
+changeToString(hiddenChamp)
 console.log(currentChamp)
 
-// turns the current champ variable into an array and prints it to the console
-currentChampArr = splitChamp(currentChamp)
-console.log(currentChampArr)
+// This adds the blank spaces to the page
+document.getElementById("champ-name").innerHTML = blankString;
 
-// Takes in the current champ array to set the number of blanks needed
-createBlanks(currentChampArr)
-console.log(hiddenChamp)
+document.onkeyup = function(event) {
+    let pressedKey = event.key;
 
-// Turns the hiddenChamp array into string
-changeToString(hiddenChamp)
-console.log(blankString)
+    checkForLetter(pressedKey);
+    updateScreen();
 
-// Adds the the guessed letter tothe guessedLetters array and print the aray to the console
-checkForLetter("x")
-console.log(guessedLetters)
-console.log(badGuessCounter)
+}
