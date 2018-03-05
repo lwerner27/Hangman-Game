@@ -13,6 +13,10 @@ let blankString;
 let badGuessCounter = 0;
 // an array of all the letters that have been guess
 let guessedLetters = [];
+// A variable that holds the boolean for playing again
+let playAgain;
+// A Variable that holds the win count
+let winCounter = 0;
 // An array of the names to choose from for the game
 const champs = [
     "aatrox", 
@@ -65,7 +69,6 @@ function splitChamp(champ) {
 // Adds the required number of blank spaces to the hiddenChamp array
 function createBlanks(array) {
     let numberOfBlanks = array.length
-    console.log(numberOfBlanks)
 
     for (let i = 0; i < numberOfBlanks; i++) {
         hiddenChamp.push("_ ")
@@ -92,6 +95,24 @@ function checkForLetter(letter) {
     changeToString(hiddenChamp);
 }
 
+// A function for reseting the game after a win or loss
+function resetGame() {
+    playAgain = confirm("Would you like to play again?");
+
+    if (playAgain) {
+        badGuessCounter = 0;
+        hiddenChamp = [];
+        guessedLetters = [];
+        currentChamp = randomChamp()
+        currentChampArr = splitChamp(currentChamp)
+        createBlanks(currentChampArr)
+        changeToString(hiddenChamp)
+        updateScreen();
+        console.log(currentChamp)
+    }
+}
+
+// A function that updates the screen
 function updateScreen() {
     document.getElementById("guessed-letters").innerHTML = guessedLetters;
     document.getElementById("champ-name").innerHTML = blankString;
@@ -101,9 +122,14 @@ function updateScreen() {
     }
 }
 
+// A function that checks to see if they player won
 function winCheck() {
     if (blankString === currentChamp) {
         document.getElementById("hangman-img").src = imgPaths[7];
+        winCounter++;
+        resetGame();
+    } else if (badGuessCounter === 6) {
+        resetGame();
     }
 }
 
